@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
 import NoteCard from '../components/NoteCard'
+import toast from 'react-hot-toast'
 
 const HomePage = () => {
   const [notes, setNotes] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -14,6 +15,7 @@ const HomePage = () => {
         setNotes(res.data);
       } catch (error) {
         console.error('Error fetching notes:', error)
+        toast.error("Failed to fetch notes")
       } finally {
         setLoading(false)
       }
@@ -24,8 +26,10 @@ const HomePage = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3000/api/notes/${id}`)
+      toast.success("Note deleted successfully")
       setNotes(notes.filter(note => note._id !== id))
     } catch (error) {
+      toast.error("Failed to delete note")
       console.error('Error deleting note:', error)
     }
   }

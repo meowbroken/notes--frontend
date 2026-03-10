@@ -42,10 +42,14 @@ const NoteCard = ({ note, onDelete }) => {
           
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 
             translate-y-2 group-hover:translate-y-0 transition-all duration-200">
-            <button className="p-1.5 rounded-lg text-base-content/60 hover:text-[#00FF9D] 
-              hover:bg-[#00FF9D]/10 transition-colors">
+            <Link
+              to={`/edit/${note._id}`}
+              onClick={(e) => e.stopPropagation()}
+              className="p-1.5 rounded-lg text-base-content/60 hover:text-[#00FF9D] 
+                hover:bg-[#00FF9D]/10 transition-colors"
+            >
               <PenSquareIcon className="size-4" />
-            </button>
+            </Link>
             <button
               className="p-1.5 rounded-lg text-base-content/60 hover:text-error 
                 hover:bg-error/10 transition-colors"
