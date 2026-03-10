@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../components/Navbar'
-import axios from 'axios'
-import NoteCard from '../components/NoteCard'
-import toast from 'react-hot-toast'
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import NoteCard from "../components/NoteCard";
+import toast from "react-hot-toast";
+import { useApiWithAuth } from "../useApiWithAuth";
 
 const HomePage = () => {
   const [notes, setNotes] = useState([])
   const [, setLoading] = useState(false)
+  const api = useApiWithAuth();
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/notes")
+        const res = await api.get("/notes");
         setNotes(res.data);
       } catch (error) {
         console.error('Error fetching notes:', error)
@@ -21,11 +22,11 @@ const HomePage = () => {
       }
     }
     fetchNotes()
-  }, [])
+  }, [api])
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/notes/${id}`)
+      await api.delete(`/notes/${id}`)
       toast.success("Note deleted successfully")
       setNotes(notes.filter(note => note._id !== id))
     } catch (error) {

@@ -1,20 +1,21 @@
 import { ArrowLeftIcon, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
+import { useApiWithAuth } from "../useApiWithAuth";
 
 const CreatePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const api = useApiWithAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("http://localhost:3000/api/notes", {
+      await api.post("/notes", {
         title,
         content,
       });

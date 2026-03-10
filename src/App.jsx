@@ -1,21 +1,33 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import CreatePage from './pages/CreatePage';
 import NoteDetailPage from './pages/NoteDetailPage';
 import EditPage from './pages/EditPage';
-const App = () => {
-  return (
-    <div className="relative h-full w-full">
-      <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24
-       [background:radial-gradient(125%_125%_at_50%_10%,#000_60%,#00FF9D40_100%)]" />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/create" element={<CreatePage />} /> 
-        <Route path="/notes/:id" element={<NoteDetailPage />} />
-        <Route path="/edit/:id" element={<EditPage />} />
-    </Routes>
-    </div> 
-  )
-}
+import { useAuth } from './AuthContext.jsx';
+import { Loader2 } from 'lucide-react';
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
-export default App
+const App = () => {
+  const { accessToken, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="size-8 animate-spin text-[#be4cc0]" />
+      </div>
+    );
+  }
+
+  return <Routes>
+    <Route path="/" element={accessToken ? <HomePage /> : <Navigate to="/login" />} />
+    <Route path="/login" element={accessToken ? <Navigate to="/" /> : <LoginPage />} />
+    <Route path="/register" element={accessToken ? <Navigate to="/" /> : <RegisterPage />} />
+    <Route path="/create" element={accessToken ? <CreatePage /> : <Navigate to="/login" />} /> 
+    <Route path="/notes/:id" element={accessToken ? <NoteDetailPage /> : <Navigate to="/login" />} />
+    <Route path="/edit/:id" element={accessToken ? <EditPage /> : <Navigate to="/login" />} />
+    <Route path="*" element={<Navigate to="/" />} />  
+  </Routes>;
+};
+
+export default App;

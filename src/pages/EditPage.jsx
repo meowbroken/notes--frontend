@@ -1,8 +1,8 @@
 import { ArrowLeftIcon, Edit, Loader2 } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
+import { useApiWithAuth } from "../useApiWithAuth";
 
 const EditPage = () => {
   const { id } = useParams();
@@ -11,11 +11,12 @@ const EditPage = () => {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const navigate = useNavigate();
+  const api = useApiWithAuth();
 
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/notes/${id}`);
+        const response = await api.get(`/notes/${id}`);
         setTitle(response.data.title);
         setContent(response.data.content);
       } catch (error) {
@@ -25,13 +26,13 @@ const EditPage = () => {
       }
     };
     fetchNote();
-  }, [id]);
+  }, [id, api]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.put(`http://localhost:3000/api/notes/${id}`, {
+      await api.put(`/notes/${id}`, {
         title,
         content,
       });

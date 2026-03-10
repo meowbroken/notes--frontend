@@ -1,9 +1,9 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowLeftIcon, PenSquareIcon, Trash2Icon, Calendar, Loader2 } from "lucide-react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { formatDate } from "../lib/utils";
+import { useApiWithAuth } from "../useApiWithAuth";
 
 const NoteDetailPage = () => {
   const { id } = useParams();
@@ -11,11 +11,12 @@ const NoteDetailPage = () => {
   const [fetching, setFetching] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
+  const api = useApiWithAuth();
 
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/notes/${id}`);
+        const response = await api.get(`/notes/${id}`);
         setNote(response.data);
       } catch (error) {
         console.error("Error fetching note:", error);
@@ -25,14 +26,14 @@ const NoteDetailPage = () => {
       }
     };
     fetchNote();
-  }, [id]);
+  }, [id, api]);
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
     
     setDeleting(true);
     try {
-      await axios.delete(`http://localhost:3000/api/notes/${id}`);
+      await api.delete(`/notes/${id}`);
       toast.success("Note deleted successfully");
       navigate("/");
     } catch (error) {
