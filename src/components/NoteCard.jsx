@@ -13,18 +13,18 @@ const NoteCard = ({ note, onDelete }) => {
     <Link
       to={`/notes/${note._id}`}
       className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-base-200/80 to-base-300/50 
-        backdrop-blur-sm border border-base-content/10 hover:border-[#00FF9D]/50
-        shadow-lg hover:shadow-[#00FF9D]/20 hover:shadow-2xl
+        backdrop-blur-sm border border-base-content/10 hover:border-[#be4cc0]/50
+        shadow-lg hover:shadow-[#be4cc0]/20 hover:shadow-2xl
         transition-all duration-300 hover:-translate-y-2"
     >
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00FF9D] to-emerald-400" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#be4cc0] to-emerald-400" />
       
-      <div className="absolute inset-0 bg-gradient-to-br from-[#00FF9D]/0 to-[#00FF9D]/0 
-        group-hover:from-[#00FF9D]/5 group-hover:to-transparent transition-all duration-300" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#be4cc0]/0 to-[#be4cc0]/0 
+        group-hover:from-[#be4cc0]/5 group-hover:to-transparent transition-all duration-300" />
       
       <div className="relative p-5 flex flex-col h-full min-h-[180px]">
         <h3 className="text-base-content font-bold text-lg mb-2 line-clamp-1 
-          group-hover:text-[#00FF9D] transition-colors duration-200">
+          group-hover:text-[#be4cc0] transition-colors duration-200">
           {note.title}
         </h3>
         
@@ -45,7 +45,7 @@ const NoteCard = ({ note, onDelete }) => {
             <Link
               to={`/edit/${note._id}`}
               onClick={(e) => e.stopPropagation()}
-              className="p-1.5 rounded-lg text-base-content/60 hover:text-[#00FF9D] 
+              className="p-1.5 rounded-lg text-base-content/60 hover:text-[#da65de] 
                 hover:bg-[#00FF9D]/10 transition-colors"
             >
               <PenSquareIcon className="size-4" />

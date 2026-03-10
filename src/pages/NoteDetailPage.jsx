@@ -46,7 +46,7 @@ const NoteDetailPage = () => {
   if (fetching) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="size-8 animate-spin text-[#00FF9D]" />
+        <Loader2 className="size-8 animate-spin text-[#be4cc0]" />
       </div>
     );
   }
@@ -75,7 +75,7 @@ const NoteDetailPage = () => {
           <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-base-200/80 to-base-300/50 
             backdrop-blur-sm border border-base-content/10 shadow-lg">
             
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00FF9D] to-emerald-400" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#be4cc0] to-emerald-400" />
 
             <div className="p-6 sm:p-8">
               <div className="flex justify-between items-start mb-6">
@@ -86,8 +86,8 @@ const NoteDetailPage = () => {
                 <div className="flex items-center gap-2">
                   <Link
                     to={`/edit/${id}`}
-                    className="p-2 rounded-lg text-base-content/60 hover:text-[#00FF9D] 
-                      hover:bg-[#00FF9D]/10 transition-colors"
+                    className="p-2 rounded-lg text-base-content/60 hover:text-[#be4cc0] 
+                      hover:bg-[#be4cc0]/10 transition-colors"
                   >
                     <PenSquareIcon className="size-5" />
                   </Link>
